@@ -76,12 +76,6 @@ class ContactView(View):
             return render(request, 'contact_not_reg.html')
 
 
-
-class CheckoutView(View):
-    def get(self,request):
-        return render(request, 'checkout.html')
-
-
 class CartView(View):
     def get(self,request):
         if request.user.is_authenticated:
@@ -191,6 +185,27 @@ class BolimView(View):
                 "bolimlar": Bolim.objects.all()
             }
             return render(request, 'filter_mahsulot_not_reg.html', content)
+
+
+class SavatItemPlusView(View):
+    def get(self,request,pk):
+        if request.user.is_authenticated:
+            mahsulot = Mahsulot.objects.get(id=pk)
+            if mahsulot:
+                Savatitem.objects.create(
+                    savat = Savat.objects.get(account__user=request.user),
+                    mahsulot = mahsulot,
+                    miqdor = 1,
+                    summa = mahsulot.narx
+                )
+                return redirect('savat')
+
+class SavatItemMinusView(View):
+    def get(self,request,pk):
+        if request.user.is_authenticated:
+            Savatitem.objects.get(id=pk, savat__account__user=request.user).delete()
+            return redirect('savat')
+
 
 
 

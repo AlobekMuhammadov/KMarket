@@ -10,7 +10,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+    <link href="{% static 'img/logo.png' %}" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -113,7 +113,14 @@
                                 </div>
                             </td>
                             <td class="align-middle">{{item.summa}}.000 so'm</td>
-                            <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
+                            <td class="align-middle">
+                                <button class="btn btn-sm btn-primary">
+                                        <a href="/savat_item_minus/{{item.id}}/">
+                                            <i class="fa fa-times" style="color:black">
+                                            </i>
+                                        </a>
+                                </button>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
